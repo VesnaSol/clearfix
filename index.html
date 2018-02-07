@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Clearfix Methods</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<meta name="">
+</head>
+<body>
+	<div class="wrap">
+  <header>
+    <h1> "clearfix" methods</h1>
+    <h2>clearing floats</h2>
+    <div class="sign"> home </div>
+  </header>
+
+<div class="content">
+  
+  <article class="problem">
+    <h2> problem: </h2>
+    <section class="kodovi">
+      <h4><code> HTML: </code></h4>
+      <code class="language-html">
+        <div>
+          <span><</span>div class="container">
+        </div>
+        <div class="indent"> 
+          <span><</span>div class="element1"> ovo je tekst prvog elementa <span><</span>/div>
+        </div>
+        <div class="indent">
+           <span><</span>div class="element2"> ovo je tekst drugog elementa <span><</span>/div>
+        </div>
+        <div>
+          <span><</span>/div>
+        </div>
+        <div>
+          <span><</span> div class="main"> ovo je sibling .container-u <span><</span>/div>
+        </div>
+      </code>
+    </section>
+    <section class="kodovi">    
+      <h4><code>CSS:</code></h4>    
+      <code class="language-css">
+        .element1, .element2 {
+        <div class="indent">float: left;</div>
+        <div class="indent">width: 50%;</div>
+        }
+      </code>
+    </section>
+  
+    <section class="descript">
+        <u>
+          <li>.element1 i .element2 su float-ovani, zbog toga njihov parent .container gubi sadrzaj, gubi visinu (collapses) </li>
+          <li>  
+        nakon toga element div.main, koji je sibling .container-u, se podize, smesta se do float-ovanih elemenata.
+          </li>
+          <li>dve su mogucnosti koje zelimo da ispunimo:
+            <ul>
+              <li>da roditelj element .container sadrzi float-ovane child elemente</li>
+              <li>da se sadrzaj elementa .main odvoji od svog sibling-a .container odnosno od njegovih child-ova koji  su float-ovani</li>
+            </ul>
+          </li>
+          </ul>
+    </section>
+     
+    <section class="demo">
+      <h4>rezultat:</h4>
+      
+      <div class="container">
+        <div class="element1">ovo je tekst prvog elementa - Lorem ipsum dolor sit amet.</div>
+        <div class="element2">ovo je tekst drugog elementa -  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis, vel ratione iusto quo a ipsum quia repellendus dolore nobis asperiores!</div>
+      </div>
+      <div class="main">ovo je sibling .container-u -  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero. </div>
+      
+    </section>
+  </article>
+
+  <div class="fixes">
+    <h2> Postupci: </h2>
+    <ul class="num">
+      <li>
+        <div class="rb">1.</div>
+        <h2 class="frame"> clear </h2>
+        <p>
+          <ul>
+            <li>dodaje se novi prazan element u .container ispod float-ovanih elemenata</li>
+            <li>koji dobija deklaraciju <code class="language-css">clear: both;</code> i klasu <code>.clear</code></li>
+            <li>problem: dodavanje novog elementa koji nema znacenje (sluzi za stilizovanje)</li> 
+        </ul>
+        <p>CSS:</p>
+        <div class="kodovi">
+          <code class="language-css">.clear {
+            <div class="indent">clear: both;</div>
+            }</code>
+          </div>
+        <p>A HTML moze da izgleda ovako:</p>
+        <div class="kodovi">
+            <code class="language-html">
+          <div>
+            <span><</span>div class="container">
+          </div>
+          <div class="indent"> 
+            <span><</span>div class="element1"> ovo je tekst prvog elementa <span><</span>/div>
+          </div>
+          <div class="indent">
+             <span><</span>div class="element2"> ovo je tekst drugog elementa <span><</span>/div>
+          </div>
+          <div class="indent">
+            <span><</span>br class="clear">
+          </div>
+          <div>
+            <span><</span>/div>
+          </div>
+          <div>
+            <span><</span> div class="main"> ovo je sibling .container-u <span><</span>/div>
+          </div>
+        </code>
+      </div>
+        </p>
+            
+        <h4>rezultat:</h4>  
+        <div class="demo">
+        <div class="container">
+          <div class="element1">ovo je tekst prvog elementa - Lorem ipsum dolor sit amet.</div>
+          <div class="element2">ovo je tekst drugog elementa -  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis, vel ratione iusto quo a ipsum quia repellendus dolore nobis asperiores!</div>
+          <br class="clear">
+      </div>
+      <div class="main">ovo je sibling .container-u -  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero.</div>  
+      </li>
+          
+      <li>
+        <div class="rb">2.</div>
+        <h2 class="frame"> overflow </h2>
+        <p>
+          <ul>
+            <li>.container-u, dakle parent elementu se dodaje svojstvo <code>overflow</code>
+              <div class="kodovi">
+                <code class="language-css">.container {
+                <div class="indent">overflow: hidden;   /* navodno moze i "auto" */</div>
+                }</code>
+              </div>
+            </li>
+            <li>i ne dodaju se novi elementi, HTML ostaje kakav je bio u originalu</li>
+            <li>problem moze da bude ako neki child element prelazi granice  roditelja .container - bice odsecen tj <code>hidden</code></li>
+          </ul></p>
+               
+          <h4>rezultat:</h4>
+          <div class="demo">
+            <div class="container overflow">
+              <div class="element1">ovo je tekst prvog elementa - Lorem ipsum dolor sit amet.</div>
+              <div class="element2">ovo je tekst drugog elementa -  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis, vel ratione iusto quo a ipsum quia repellendus dolore nobis asperiores!</div>
+            </div>
+            <div class="main">ovo je sibling .container-u -  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero.</div>
+      </div>
+      </li>
+          
+      <li>
+        <div class="rb">3.</div>
+        <h2 class="frame"> "clearfix" klasa</h3>
+        <p>
+          <ul>
+            <li>pravi se klasa u css-u .clearfix, koja se zatim pripisuje bilo kojem elementu koji sadrzi float-ove
+            </li>
+            <li>koriste se pseudo elementi ::before i ::after - podesi se njihov <code>display: table </code>;  pseudo element :after sluzi da prosiri element da ukljuci float-ove (to clear the floats) i da gurne svaki sledeci element ispod containing elementa</li>
+          </ul>
+          <div>
+            <p>CSS</p>
+            <div class="kodovi">
+              <code class="language-css">.clearfix:before, clearfix:after {
+                <div class="indent">content: '';  </div>
+                <div class="indent">display: table;</div>
+                } <br>
+                <div>.clearfix:after {</div>
+                <div class="indent">clear: both;</div>
+                } <br>
+                <div>.clearfix:before {</div>
+                <div class="indent">zoom: 1;</div>
+
+              </code>
+            </div>
+          </div>
+        <p>HTML</p>
+        <div class="kodovi">
+        <code class="language-html"> 
+          <div>
+            <span><</span>div class="container clearfix">
+          </div>
+          <div> 
+            <span class="indent"><</span>div class="element1"> ovo je tekst prvog elementa <span><</span>/div>
+          </div>
+          <div>
+           <span class="indent"><</span>div class="element2"> ovo je tekst drugog elementa <span><</span>/div>
+          </div>
+          <div>
+            <span><</span>/div>
+          </div>
+          <div>
+            <span><</span> div class="main"> ovo je sibling .container-u <span><</span>/div>
+          </div>
+        </code>
+        </div>
+            
+      <div class="kodovi">
+        <h4>"Micro Clearfix" <span class="no-capitalize">(preporuka je da se ova varijanta koristi)</span>:</h4>
+        <code class="language-css">.clearfix:after {
+  <div class="indent">content: "";</div>
+  <div class="indent">display: table;</div>
+  <div class="indent">clear: both;</div>
+}
+        </code>
+      </div>
+        </p>
+      
+      <h4>rezultat:</h4>
+      <div class="demo">
+        <div class="container clearfix">
+          <div class="element1">ovo je tekst prvog elementa - Lorem ipsum dolor sit amet.</div>
+          <div class="element2">ovo je tekst drugog elementa -  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis, vel ratione iusto quo a ipsum quia repellendus dolore nobis asperiores!</div>
+        </div>
+        <div class="main">ovo je sibling .container-u -  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero.</div>
+      </div>   
+             
+      <li>
+        <div class="rb">4.</div>
+        <h2 class="frame"> "el futuro" </h2>
+        <p>
+          <ul>
+            <li>uvodi se nova vrednost svojstvu <code>min-height: contain-floats;</code>
+              <div class="kodovi">
+                <code class="language-css">.container {
+                <div class="indent">min-height: contain-floats;</div>
+                }</code>
+              </div>
+            </li>
+            <li>a moze i posebna klasa da se napravi pa da se dodeljuje elementima koji sadrze float-ove</li>
+            <li><p class="note">medjutim, ovo jos nijedan pretrazivac ne podrzava zato sto je to - sala.</p></li>
+          </ul></p>
+            
+          <h4>rezultat:</h4>
+          <div class="demo">
+            <div class="container contain">
+              <div class="element1">ovo je tekst prvog elementa - Lorem ipsum dolor sit amet.</div>
+              <div class="element2">ovo je tekst drugog elementa -  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis, vel ratione iusto quo a ipsum quia repellendus dolore nobis asperiores!</div>
+            </div>
+            <div class="main">ovo je sibling .container-u -  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero.</div>
+      </li>
+    </ul>
+  </div>
+  
+
+
+<footer></footer>
+</div>             
+</body>
+</html>
